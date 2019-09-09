@@ -1,5 +1,6 @@
 {
   "name": "babel-plugin-syntax-highlight",
+  "version": "1.0.0",
   "description": "A Babel plugin that transforms specific tagged code template strings into Prism.js syntax highlighted HTML strings.",
   "license": "MIT",
   "author": {

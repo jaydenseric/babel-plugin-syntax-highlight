@@ -1,5 +1,5 @@
 # babel-plugin-syntax-highlight changelog
 
-## Next
+## 1.0.0
 
 Initial release.
