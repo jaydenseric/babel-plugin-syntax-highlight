@@ -1,0 +1,43 @@
+{
+  "name": "babel-plugin-syntax-highlight",
+  "description": "A Babel plugin that transforms specific tagged code template strings into Prism.js syntax highlighted HTML strings.",
+  "license": "MIT",
+  "author": {
+    "name": "Jayden Seric",
+    "email": "me@jaydenseric.com",
+    "url": "https://jaydenseric.com"
+  },
+  "repository": "github:jaydenseric/babel-plugin-syntax-highlight",
+  "homepage": "https://github.com/jaydenseric/babel-plugin-syntax-highlight#readme",
+  "bugs": "https://github.com/jaydenseric/babel-plugin-syntax-highlight/issues",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=10"
+  },
+  "dependencies": {
+    "prismjs": "^1.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.3.0",
+    "eslint-config-env": "^9.0.0",
+    "eslint-config-prettier": "^6.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import-order-alphabetical": "0.0.2",
+    "eslint-plugin-jsdoc": "^15.9.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2"
+  },
+  "scripts": {
+    "test": "npm run test:eslint && npm run test:prettier && npm run test:units",
+    "test:eslint": "eslint .",
+    "test:prettier": "prettier '**/*.{json,yml,md}' -l",
+    "test:units": "node test",
+    "prepublishOnly": "npm test"
+  }
+}
