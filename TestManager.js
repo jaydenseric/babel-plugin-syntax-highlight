@@ -27,7 +27,7 @@ class TestManager {
   async runTests() {
     let errorCount = 0
 
-    for (var [name, test] of this.tests) {
+    for (const [name, test] of this.tests) {
       // eslint-disable-next-line no-console
       console.log()
       // eslint-disable-next-line no-console
