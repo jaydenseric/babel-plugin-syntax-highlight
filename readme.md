@@ -1,6 +1,6 @@
 # babel-plugin-syntax-highlight
 
-[![npm version](https://badgen.net/npm/v/babel-plugin-syntax-highlight)](https://npm.im/babel-plugin-syntax-highlight)
+[![npm version](https://badgen.net/npm/v/babel-plugin-syntax-highlight)](https://npm.im/babel-plugin-syntax-highlight) [![CI status](https://github.com/jaydenseric/babel-plugin-syntax-highlight/workflows/CI/badge.svg)](https://github.com/jaydenseric/babel-plugin-syntax-highlight/actions)
 
 A [Babel](https://babeljs.io) plugin that transforms specific tagged code template strings into [Prism.js](https://prismjs.com) syntax highlighted HTML strings.
 
