@@ -10,6 +10,13 @@
   "repository": "github:jaydenseric/babel-plugin-syntax-highlight",
   "homepage": "https://github.com/jaydenseric/babel-plugin-syntax-highlight#readme",
   "bugs": "https://github.com/jaydenseric/babel-plugin-syntax-highlight/issues",
+  "keywords": [
+    "babel",
+    "plugin",
+    "syntax",
+    "highlight",
+    "prism"
+  ],
   "files": [
     "index.js"
   ],
