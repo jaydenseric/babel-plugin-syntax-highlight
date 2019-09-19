@@ -12,6 +12,7 @@
 
 - Updated dev dependencies.
 - Updated package description.
+- Removed the readme “Todo” section. It’s better to use GitHub issues.
 - Aesthetic enhancements to the `TestManager` utility class for managing tests.
 - Test that Babel syntax errors have pretty source location info.
 

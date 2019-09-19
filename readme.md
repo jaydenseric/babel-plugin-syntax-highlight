@@ -78,7 +78,3 @@ const SyntaxHighlightedCode = ({ language, code }) => (
 
 <SyntaxHighlightedCode language="css" code={highlighted} />
 ```
-
-## Todo
-
-- For performance it might be better to load Prism.js languages on demand.
