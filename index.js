@@ -1,6 +1,5 @@
 const Prism = require('prismjs')
 const loadLanguages = require('prismjs/components/index')
-const package = require('./package.json')
 
 // Load every available Prism.js language.
 loadLanguages()
@@ -9,77 +8,115 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
   return {
     name: 'syntax-highlight',
     visitor: {
-      ImportDeclaration(
+      TemplateLiteral(
         path,
 
-        // Destructuring this would break the context for instance methods.
+        // Destructuring the state would break the context for it’s instance
+        // methods.
         state
       ) {
-        const { moduleSpecifier = package.name } = state.opts
+        // The language specifier comment is the first match before the template
+        // literal, allowing coexistence with other leading comments like
+        // /* GraphQL */ for editor syntax highlighting and Prettier formatting.
+        // The user may mistakenly use multiple language specifier comments; all
+        // must be gathered to be able to alert the user of their mistake.
 
-        // Does the import module specifier match the one configured?
-        if (path.node.source.value === moduleSpecifier) {
-          const importDefaultSpecifier = path.node.specifiers.find(
-            ({ type }) => type === 'ImportDefaultSpecifier'
+        // Find the leading comments. Sometimes Babel associates them with an
+        // ancestor, instead of the template literal.
+        const leadingComments = path.node.leadingComments
+          ? path.node.leadingComments
+          : path.parent.type === 'ExpressionStatement'
+          ? path.parent.leadingComments
+          : null
+
+        // Skip this template literal there are no leading comments.
+        if (!leadingComments) return
+
+        const languageSpecifierComments = []
+
+        leadingComments.forEach((comment, leadingCommentIndex) => {
+          // A matching comment begins with optional whitespace (including
+          // newlines), followed by “syntax-highlight”, then whitespace
+          // (including newlines), then any non-whitespace characters are
+          // captured as the Prism.js language name, then optional whitespace
+          // characters until the end. Examples:
+          // 1. /* syntax-highlight css */
+          // 2. // syntax-highlight css
+          const match = /^\s*syntax-highlight(?:\s+([^\s]+))?\s*$/m.exec(
+            // A comment value excludes the actual comment syntax.
+            comment.value
           )
 
-          if (importDefaultSpecifier)
-            throw state.buildCodeFrameError(
-              importDefaultSpecifier,
-              'Unexpected default import.'
-            )
-
-          const importSpecifiers = path.node.specifiers.filter(
-            ({ type }) => type === 'ImportSpecifier'
-          )
-
-          if (!importSpecifiers.length)
-            throw state.buildCodeFrameError(path.node, 'Missing named imports.')
-
-          importSpecifiers.forEach(importSpecifier => {
-            const prismLanguage = Prism.languages[importSpecifier.imported.name]
-
-            if (!prismLanguage)
+          if (match) {
+            if (!match[1])
               throw state.buildCodeFrameError(
-                importSpecifier,
-                `\`${importSpecifier.imported.name}\` isn’t an available Prism.js language.`
+                comment,
+                'Missing the Prism.js language name.'
               )
 
-            // Process all references to the named import’s local name.
-            path.scope
-              .getBinding(importSpecifier.local.name)
-              .referencePaths.forEach(referencePath => {
-                if (
-                  referencePath.parentPath.node.type !==
-                  'TaggedTemplateExpression'
+            languageSpecifierComments.push({
+              leadingCommentIndex,
+              comment,
+              languageName: match[1]
+            })
+          }
+        })
+
+        if (languageSpecifierComments.length) {
+          if (languageSpecifierComments.length > 1)
+            throw state.buildCodeFrameError(
+              languageSpecifierComments[1].comment,
+              'Multiple Prism.js language names specified.'
+            )
+
+          const prismLanguage =
+            Prism.languages[languageSpecifierComments[0].languageName]
+
+          if (!prismLanguage)
+            throw state.buildCodeFrameError(
+              languageSpecifierComments[0].comment,
+              `\`${languageSpecifierComments[0].languageName}\` isn’t an available Prism.js language name.`
+            )
+
+          if (path.node.expressions.length)
+            throw state.buildCodeFrameError(
+              path.node.expressions[0],
+              'Template literal expressions aren’t supported.'
+            )
+
+          // Create the syntax highlighted code string.
+          const highlightedCode = Prism.highlight(
+            // Get the code string from the template literal.
+            path.node.quasis[0].value.cooked,
+            prismLanguage
+          )
+
+          // Remove the language specifier comment. This has to happen before
+          // replacing the template literal, or else the triggered revisit will
+          // find the comment again and start a crazy feedback loop.
+          leadingComments.splice(
+            languageSpecifierComments[0].leadingCommentIndex,
+            1
+          )
+
+          // Replace the template literal with the syntax highlighted version.
+          path.replaceWith(
+            types.templateLiteral(
+              [
+                types.templateElement(
+                  {
+                    raw: highlightedCode
+                      // Add a backslash before every backslash or backtick.
+                      // See: https://github.com/babel/babel/issues/9242#issuecomment-532529613
+                      .replace(/\\|`/g, '\\$&'),
+                    cooked: highlightedCode
+                  },
+                  true
                 )
-                  throw state.buildCodeFrameError(
-                    referencePath.node,
-                    'Not tagging a template string of code to syntax highlight.'
-                  )
-
-                if (referencePath.parentPath.node.quasi.expressions.length)
-                  throw state.buildCodeFrameError(
-                    referencePath.parentPath.node.quasi.expressions[0],
-                    'Template string placeholders aren’t supported.'
-                  )
-
-                const code = referencePath.parentPath.node.quasi.quasis
-                  .map(quasi => quasi.value.cooked)
-                  .join('')
-
-                const highlightedCode = Prism.highlight(code, prismLanguage)
-
-                // Replace the tagged template string with the highlighted code
-                // string.
-                referencePath.parentPath.replaceWith(
-                  types.stringLiteral(highlightedCode)
-                )
-              })
-          })
-
-          // Remove the dummy import.
-          path.remove()
+              ],
+              []
+            )
+          )
         }
       }
     }
