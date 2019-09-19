@@ -6,19 +6,18 @@ const babelPluginSyntaxHighlight = require('.')
 const testManager = new TestManager()
 
 /**
- * Creates an function that validates an error is a particular Babel syntax
- * error, annotated with a source location colored with control characters.
+ * Creates a function that validates an error is a Babel syntax error with a
+ * particular message that contains an annotated source location.
  * @param {RegExp} messageRegex RegEx to check the error message against.
  * @returns {Function} Error validator.
  */
 const annotatedBabelSyntaxErrorValidator = messageRegex => error =>
+  // Error is a Babel syntax error.
   error.name === 'SyntaxError' &&
-  messageRegex.test(error) &&
-  // Error has pretty source location info, indicated by a red greater than
-  // symbol followed by a space, then a line number, then a space, then a pipe
-  // character.
-  // eslint-disable-next-line no-control-regex
-  /^\[0m\[31m\[1m>\[22m\[39m\[90m \d+ \| /m.test(error.message)
+  // Error has a particular message.
+  messageRegex.test(error.message) &&
+  // Error message has an annotated source location.
+  />.+\d+.+\|.+\^/s.test(error.message)
 
 testManager.addTest('Line comment expression statement.', () => {
   assert.strictEqual(
