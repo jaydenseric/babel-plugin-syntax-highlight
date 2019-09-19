@@ -1,3 +1,5 @@
+const chalk = require('chalk')
+
 /** Test manager. */
 class TestManager {
   constructor() {
@@ -28,20 +30,14 @@ class TestManager {
 
     for (const [name, test] of this.tests) {
       // eslint-disable-next-line no-console
-      console.group(
-        // Bright.
-        `\n\x1b[1m${name}\x1b[0m`
-      )
+      console.group(`\nTest: ${chalk.bold(name)}`)
 
       try {
         await test()
         passCount++
       } catch (error) {
         failCount++
-        console.error(
-          // Dim, red.
-          `\x1b[2m\x1b[31m${error.stack}\x1b[0m`
-        )
+        console.error(chalk.dim.red(error.stack))
       } finally {
         // eslint-disable-next-line no-console
         console.groupEnd()
@@ -49,14 +45,9 @@ class TestManager {
     }
 
     console.info(
-      // Bright.
-      `\n\x1b[1m${
-        failCount
-          ? // Red.
-            '\x1b[31m'
-          : // Green.
-            '\x1b[32m'
-      }${passCount}/${this.tests.size} tests passed.\x1b[0m\n`
+      `\n${chalk.bold[failCount ? 'red' : 'green'](
+        `${passCount}/${this.tests.size} tests passed.`
+      )}\n`
     )
 
     if (failCount)
