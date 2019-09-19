@@ -29,7 +29,6 @@ class TestManager {
     let failCount = 0
 
     for (const [name, test] of this.tests) {
-      // eslint-disable-next-line no-console
       console.group(`\nTest: ${chalk.bold(name)}`)
 
       try {
@@ -39,7 +38,6 @@ class TestManager {
         failCount++
         console.error(chalk.dim.red(error.stack))
       } finally {
-        // eslint-disable-next-line no-console
         console.groupEnd()
       }
     }

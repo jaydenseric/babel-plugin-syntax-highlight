@@ -1,5 +1,12 @@
 # babel-plugin-syntax-highlight changelog
 
+## Next
+
+### Patch
+
+- Updated the eslint-config-env dev dependency.
+- Removed now redundant `eslint-disable-next-line no-console` comments.
+
 ## 2.0.0
 
 ### Major
