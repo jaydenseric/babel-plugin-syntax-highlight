@@ -5,6 +5,7 @@
 ### Patch
 
 - Updated dev dependencies.
+- Aesthetic enhancements to the `TestManager` utility class for managing tests.
 
 ## 1.0.0
 

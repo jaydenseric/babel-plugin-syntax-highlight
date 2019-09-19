@@ -1,5 +1,3 @@
-const assert = require('assert')
-
 /** Test manager. */
 class TestManager {
   constructor() {
@@ -25,34 +23,43 @@ class TestManager {
    * @returns {Promise<void>} Resolves once all tests have run.
    */
   async runTests() {
-    let errorCount = 0
+    let passCount = 0
+    let failCount = 0
 
     for (const [name, test] of this.tests) {
       // eslint-disable-next-line no-console
-      console.log()
-      // eslint-disable-next-line no-console
-      console.groupCollapsed(`Testing: ${name}`)
+      console.group(
+        // Bright.
+        `\n\x1b[1m${name}\x1b[0m`
+      )
+
       try {
         await test()
+        passCount++
       } catch (error) {
-        if (error instanceof assert.AssertionError)
-          // eslint-disable-next-line no-console
-          console.log(error.stack)
-        else console.error(error)
-
-        errorCount++
+        failCount++
+        console.error(
+          // Dim, red.
+          `\x1b[2m\x1b[31m${error.stack}\x1b[0m`
+        )
       } finally {
         // eslint-disable-next-line no-console
         console.groupEnd()
       }
     }
 
-    // eslint-disable-next-line no-console
-    console.log()
-    // eslint-disable-next-line no-console
-    console.info(`${errorCount} test error${errorCount === 1 ? '' : 's'}`)
+    console.info(
+      // Bright.
+      `\n\x1b[1m${
+        failCount
+          ? // Red.
+            '\x1b[31m'
+          : // Green.
+            '\x1b[32m'
+      }${passCount}/${this.tests.size} tests passed.\x1b[0m\n`
+    )
 
-    if (errorCount)
+    if (failCount)
       // eslint-disable-next-line no-process-exit
       process.exit(1)
   }
