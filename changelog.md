@@ -6,6 +6,7 @@
 
 - Updated the eslint-config-env dev dependency.
 - Removed now redundant `eslint-disable-next-line no-console` comments.
+- Moved the readme “Support” section to the end.
 
 ## 2.0.0
 

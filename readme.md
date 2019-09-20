@@ -10,10 +10,6 @@ Build-time syntax highlighting advantages:
 - 🖌 Less client rendering work.
 - 🎨 Beautiful code the instant the HTML and CSS loads.
 
-## Support
-
-- Node.js v10+
-
 ## Setup
 
 To install from [npm](https://npmjs.com) run:
@@ -78,3 +74,7 @@ const SyntaxHighlightedCode = ({ language, code }) => (
 
 <SyntaxHighlightedCode language="css" code={highlighted} />
 ```
+
+## Support
+
+- Node.js v10+
