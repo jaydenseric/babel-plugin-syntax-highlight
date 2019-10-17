@@ -1,9 +1,9 @@
 const assert = require('assert').strict
 const babel = require('@babel/core')
-const { TestManager } = require('./TestManager')
+const { TestDirector } = require('test-director')
 const babelPluginSyntaxHighlight = require('.')
 
-const testManager = new TestManager()
+const testDirector = new TestDirector()
 
 /**
  * Creates a function that validates an error is a Babel syntax error with a
@@ -19,7 +19,7 @@ const annotatedBabelSyntaxErrorValidator = messageRegex => error =>
   // Error message has an annotated source location.
   />.+\d+.+\|.+\^/s.test(error.message)
 
-testManager.addTest('Line comment expression statement.', () => {
+testDirector.add('Line comment expression statement.', () => {
   assert.strictEqual(
     babel.transform('// syntax-highlight graphql\n`scalar Upload`', {
       plugins: [babelPluginSyntaxHighlight]
@@ -28,7 +28,7 @@ testManager.addTest('Line comment expression statement.', () => {
   )
 })
 
-testManager.addTest('Block comment expression statement.', () => {
+testDirector.add('Block comment expression statement.', () => {
   assert.strictEqual(
     babel.transform('/* syntax-highlight graphql */ `scalar Upload`', {
       plugins: [babelPluginSyntaxHighlight]
@@ -37,7 +37,7 @@ testManager.addTest('Block comment expression statement.', () => {
   )
 })
 
-testManager.addTest('Variable declarator.', () => {
+testDirector.add('Variable declarator.', () => {
   assert.strictEqual(
     babel.transform(
       'const a = /* syntax-highlight graphql */ `scalar Upload`',
@@ -47,7 +47,7 @@ testManager.addTest('Variable declarator.', () => {
   )
 })
 
-testManager.addTest('Arrow function expression.', () => {
+testDirector.add('Arrow function expression.', () => {
   assert.strictEqual(
     babel.transform(
       'const a = () => /* syntax-highlight graphql */ `scalar Upload`',
@@ -57,7 +57,7 @@ testManager.addTest('Arrow function expression.', () => {
   )
 })
 
-testManager.addTest('Object property.', () => {
+testDirector.add('Object property.', () => {
   assert.strictEqual(
     babel.transform(
       'const a = { b: /* syntax-highlight graphql */ `scalar Upload` }',
@@ -67,7 +67,7 @@ testManager.addTest('Object property.', () => {
   )
 })
 
-testManager.addTest('Template literal escapes.', () => {
+testDirector.add('Template literal escapes.', () => {
   assert.strictEqual(
     babel.transform('/* syntax-highlight js */ `\\` \\\\ \\` \\``', {
       plugins: [babelPluginSyntaxHighlight]
@@ -76,7 +76,7 @@ testManager.addTest('Template literal escapes.', () => {
   )
 })
 
-testManager.addTest('Unrelated comment and template literal.', () => {
+testDirector.add('Unrelated comment and template literal.', () => {
   assert.strictEqual(
     babel.transform('/* GraphQL */ ``', {
       plugins: [babelPluginSyntaxHighlight]
@@ -85,7 +85,7 @@ testManager.addTest('Unrelated comment and template literal.', () => {
   )
 })
 
-testManager.addTest('Multiple relevant and irrelevant comments.', () => {
+testDirector.add('Multiple relevant and irrelevant comments.', () => {
   assert.strictEqual(
     babel.transform(
       '/* syntax-highlight graphql */ /* GraphQL */ `scalar Upload`',
@@ -95,7 +95,7 @@ testManager.addTest('Multiple relevant and irrelevant comments.', () => {
   )
 })
 
-testManager.addTest('Multiple relevant comments.', () => {
+testDirector.add('Multiple relevant comments.', () => {
   assert.throws(() => {
     babel.transform(
       '/* syntax-highlight css */ /* syntax-highlight graphql */ `scalar Upload`',
@@ -104,7 +104,7 @@ testManager.addTest('Multiple relevant comments.', () => {
   }, annotatedBabelSyntaxErrorValidator(/Multiple Prism\.js language names specified\./))
 })
 
-testManager.addTest('Comment missing the language name.', () => {
+testDirector.add('Comment missing the language name.', () => {
   assert.throws(() => {
     babel.transform('/* syntax-highlight */ ``', {
       plugins: [babelPluginSyntaxHighlight]
@@ -112,7 +112,7 @@ testManager.addTest('Comment missing the language name.', () => {
   }, annotatedBabelSyntaxErrorValidator(/Missing the Prism\.js language name\./))
 })
 
-testManager.addTest('Unavailable Prism.js language name.', () => {
+testDirector.add('Unavailable Prism.js language name.', () => {
   assert.throws(() => {
     babel.transform('/* syntax-highlight _ */ ``', {
       plugins: [babelPluginSyntaxHighlight]
@@ -120,7 +120,7 @@ testManager.addTest('Unavailable Prism.js language name.', () => {
   }, annotatedBabelSyntaxErrorValidator(/`_` isn’t an available Prism\.js language name\./))
 })
 
-testManager.addTest('Unsupported template literal expression.', () => {
+testDirector.add('Unsupported template literal expression.', () => {
   assert.throws(() => {
     babel.transform("/* syntax-highlight graphql */ `${''}`", {
       plugins: [babelPluginSyntaxHighlight]
@@ -128,7 +128,7 @@ testManager.addTest('Unsupported template literal expression.', () => {
   }, annotatedBabelSyntaxErrorValidator(/Template literal expressions aren’t supported\./))
 })
 
-testManager.addTest('Comment not leading a template literal.', () => {
+testDirector.add('Comment not leading a template literal.', () => {
   assert.strictEqual(
     babel.transform('/* syntax-highlight graphql */', {
       plugins: [babelPluginSyntaxHighlight]
@@ -137,4 +137,4 @@ testManager.addTest('Comment not leading a template literal.', () => {
   )
 })
 
-testManager.runTests()
+testDirector.run()

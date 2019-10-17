@@ -6,6 +6,7 @@
 
 - Updated dev dependencies.
 - Removed now redundant `eslint-disable-next-line no-console` comments.
+- Use [`test-director`](https://npm.im/test-director) for tests.
 - Moved the readme “Support” section to the end.
 
 ## 2.0.0
