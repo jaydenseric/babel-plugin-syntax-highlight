@@ -69,10 +69,13 @@ testDirector.add('Object property.', () => {
 
 testDirector.add('Template literal escapes.', () => {
   assert.strictEqual(
-    babel.transform('/* syntax-highlight js */ `\\` \\\\ \\` \\``', {
-      plugins: [babelPluginSyntaxHighlight]
-    }).code,
-    '`<span class="token template-string"><span class="token template-punctuation string">\\`</span><span class="token string"> \\\\ </span><span class="token template-punctuation string">\\`</span></span> \\``;'
+    babel.transform(
+      // Use markup for simple output. Backslash escaping of ‘`’, ‘\’ and ‘${’
+      // (only if ‘$’ is followed by ‘{’) is being tested.
+      '/* syntax-highlight markup */ `\\`\\${ $ \\\\ \\` \\``',
+      { plugins: [babelPluginSyntaxHighlight] }
+    ).code,
+    '`\\`\\${ $ \\\\ \\` \\``;'
   )
 })
 

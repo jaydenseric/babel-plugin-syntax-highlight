@@ -106,9 +106,9 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
                 types.templateElement(
                   {
                     raw: highlightedCode
-                      // Add a backslash before every backslash or backtick.
+                      // Add a backslash before every ‘`’, ‘\’ and ‘${’.
                       // See: https://github.com/babel/babel/issues/9242#issuecomment-532529613
-                      .replace(/\\|`/g, '\\$&'),
+                      .replace(/\\|`|\${/g, '\\$&'),
                     cooked: highlightedCode
                   },
                   true
