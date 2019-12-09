@@ -1,5 +1,12 @@
 # babel-plugin-syntax-highlight changelog
 
+## Next
+
+### Patch
+
+- Updated dev dependencies.
+- Removed the now redundant [`eslint-plugin-import-order-alphabetical`](https://npm.im/eslint-plugin-import-order-alphabetical) dev dependency.
+
 ## 2.0.1
 
 ### Patch
