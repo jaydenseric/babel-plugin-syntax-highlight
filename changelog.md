@@ -6,6 +6,7 @@
 
 - Updated dev dependencies.
 - Removed the now redundant [`eslint-plugin-import-order-alphabetical`](https://npm.im/eslint-plugin-import-order-alphabetical) dev dependency.
+- Use [`coverage-node`](https://npm.im/coverage-node) for test code coverage.
 - Use strict mode for scripts.
 - Renamed the `test:units` script to `test:api`.
 - Use double quotes around the `test:prettier` script glob for Windows support.
