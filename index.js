@@ -31,7 +31,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
           ? path.parent.leadingComments
           : null
 
-        // Skip this template literal there are no leading comments.
+        // Skip this template literal if there are no leading comments.
         if (!leadingComments) return
 
         const languageSpecifierComments = []

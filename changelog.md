@@ -10,6 +10,7 @@
 - Renamed the `test:units` script to `test:api`.
 - Test Node.js v13 in CI.
 - Prettier ignore `package.json`.
+- Comment typo fix.
 
 ## 2.0.1
 
