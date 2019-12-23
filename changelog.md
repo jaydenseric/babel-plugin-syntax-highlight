@@ -11,6 +11,7 @@
 - Test Node.js v13 in CI.
 - Prettier ignore `package.json`.
 - Comment typo fix.
+- Added a `gitattributes` file to enforce `LF` line endings in a Windows environment.
 
 ## 2.0.1
 
