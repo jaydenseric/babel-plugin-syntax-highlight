@@ -13,6 +13,7 @@
 - Test Node.js v13 in CI.
 - Prettier ignore `package.json`.
 - Comment typo fix.
+- Renamed a variable in tests.
 
 ## 2.0.1
 
