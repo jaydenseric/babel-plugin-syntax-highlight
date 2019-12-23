@@ -12,6 +12,7 @@
 - Prettier ignore `package.json`.
 - Comment typo fix.
 - Added a `gitattributes` file to enforce `LF` line endings in a Windows environment.
+- Use double quotes around the `test:prettier` script glob for Windows support.
 
 ## 2.0.1
 

@@ -44,8 +44,8 @@
   "scripts": {
     "test": "npm run test:eslint && npm run test:prettier && npm run test:api",
     "test:eslint": "eslint .",
-    "test:prettier": "prettier '**/*.{json,yml,md}' -l",
     "test:api": "node test",
+    "test:prettier": "prettier \"**/*.{json,yml,md}\" -l",
     "prepublishOnly": "npm test"
   }
 }
