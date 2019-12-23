@@ -81,6 +81,24 @@ tests.add('Template literal escapes.', () => {
   )
 })
 
+tests.add('Unrelated expression statement template literal.', () => {
+  assert.strictEqual(
+    babel.transform('``', {
+      plugins: [babelPluginSyntaxHighlight]
+    }).code,
+    '``;'
+  )
+})
+
+tests.add('Unrelated variable declaration template literal.', () => {
+  assert.strictEqual(
+    babel.transform('const a = ``', {
+      plugins: [babelPluginSyntaxHighlight]
+    }).code,
+    'const a = ``;'
+  )
+})
+
 tests.add('Unrelated comment and template literal.', () => {
   assert.strictEqual(
     babel.transform('/* GraphQL */ ``', {

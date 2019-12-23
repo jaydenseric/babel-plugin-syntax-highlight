@@ -14,6 +14,7 @@
 - Prettier ignore `package.json`.
 - Comment typo fix.
 - Renamed a variable in tests.
+- Added more tests.
 
 ## 2.0.1
 
