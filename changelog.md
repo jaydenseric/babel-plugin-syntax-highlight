@@ -8,11 +8,11 @@
 - Removed the now redundant [`eslint-plugin-import-order-alphabetical`](https://npm.im/eslint-plugin-import-order-alphabetical) dev dependency.
 - Use strict mode for scripts.
 - Renamed the `test:units` script to `test:api`.
+- Use double quotes around the `test:prettier` script glob for Windows support.
+- Added a `.gitattributes` file to enforce `LF` line endings in a Windows environment.
 - Test Node.js v13 in CI.
 - Prettier ignore `package.json`.
 - Comment typo fix.
-- Added a `gitattributes` file to enforce `LF` line endings in a Windows environment.
-- Use double quotes around the `test:prettier` script glob for Windows support.
 
 ## 2.0.1
 
