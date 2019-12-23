@@ -11,6 +11,7 @@
   "repository": "github:jaydenseric/babel-plugin-syntax-highlight",
   "homepage": "https://github.com/jaydenseric/babel-plugin-syntax-highlight#readme",
   "bugs": "https://github.com/jaydenseric/babel-plugin-syntax-highlight/issues",
+  "funding": "https://github.com/sponsors/jaydenseric",
   "keywords": [
     "babel",
     "plugin",
