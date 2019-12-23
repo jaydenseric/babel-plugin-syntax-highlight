@@ -42,10 +42,10 @@
     "test-director": "^3.0.0"
   },
   "scripts": {
-    "test": "npm run test:eslint && npm run test:prettier && npm run test:units",
+    "test": "npm run test:eslint && npm run test:prettier && npm run test:api",
     "test:eslint": "eslint .",
     "test:prettier": "prettier '**/*.{json,yml,md}' -l",
-    "test:units": "node test",
+    "test:api": "node test",
     "prepublishOnly": "npm test"
   }
 }
