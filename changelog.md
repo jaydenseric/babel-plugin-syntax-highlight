@@ -7,6 +7,7 @@
 - Updated dev dependencies.
 - Removed the now redundant [`eslint-plugin-import-order-alphabetical`](https://npm.im/eslint-plugin-import-order-alphabetical) dev dependency.
 - Use strict mode for scripts.
+- Test Node.js v13 in CI.
 
 ## 2.0.1
 
