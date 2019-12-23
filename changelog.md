@@ -6,6 +6,7 @@
 
 - Updated dev dependencies.
 - Removed the now redundant [`eslint-plugin-import-order-alphabetical`](https://npm.im/eslint-plugin-import-order-alphabetical) dev dependency.
+- Use strict mode for scripts.
 
 ## 2.0.1
 

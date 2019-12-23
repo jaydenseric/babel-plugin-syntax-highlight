@@ -1,3 +1,5 @@
+'use strict'
+
 const Prism = require('prismjs')
 const loadLanguages = require('prismjs/components/index')
 

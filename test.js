@@ -1,3 +1,5 @@
+'use strict'
+
 const assert = require('assert').strict
 const babel = require('@babel/core')
 const { TestDirector } = require('test-director')
