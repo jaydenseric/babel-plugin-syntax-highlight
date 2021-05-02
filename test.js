@@ -19,7 +19,7 @@ const annotatedBabelSyntaxErrorValidator = messageRegex => error =>
   // Error has a particular message.
   messageRegex.test(error.message) &&
   // Error message has an annotated source location.
-  />.+\d+.+\|.+\^/s.test(error.message)
+  />.+\d+.+\|.+\^/su.test(error.message)
 
 tests.add('Line comment expression statement.', () => {
   assert.strictEqual(
@@ -124,7 +124,7 @@ tests.add('Multiple relevant comments.', () => {
       '/* syntax-highlight css */ /* syntax-highlight graphql */ `scalar Upload`',
       { plugins: [babelPluginSyntaxHighlight] }
     )
-  }, annotatedBabelSyntaxErrorValidator(/Multiple Prism\.js language names specified\./))
+  }, annotatedBabelSyntaxErrorValidator(/Multiple Prism\.js language names specified\./u))
 })
 
 tests.add('Comment missing the language name.', () => {
@@ -132,7 +132,7 @@ tests.add('Comment missing the language name.', () => {
     babel.transform('/* syntax-highlight */ ``', {
       plugins: [babelPluginSyntaxHighlight]
     })
-  }, annotatedBabelSyntaxErrorValidator(/Missing the Prism\.js language name\./))
+  }, annotatedBabelSyntaxErrorValidator(/Missing the Prism\.js language name\./u))
 })
 
 tests.add('Unavailable Prism.js language name.', () => {
@@ -140,7 +140,7 @@ tests.add('Unavailable Prism.js language name.', () => {
     babel.transform('/* syntax-highlight _ */ ``', {
       plugins: [babelPluginSyntaxHighlight]
     })
-  }, annotatedBabelSyntaxErrorValidator(/`_` isn’t an available Prism\.js language name\./))
+  }, annotatedBabelSyntaxErrorValidator(/`_` isn’t an available Prism\.js language name\./u))
 })
 
 tests.add('Unsupported template literal expression.', () => {
@@ -148,7 +148,7 @@ tests.add('Unsupported template literal expression.', () => {
     babel.transform("/* syntax-highlight graphql */ `${''}`", {
       plugins: [babelPluginSyntaxHighlight]
     })
-  }, annotatedBabelSyntaxErrorValidator(/Template literal expressions aren’t supported\./))
+  }, annotatedBabelSyntaxErrorValidator(/Template literal expressions aren’t supported\./u))
 })
 
 tests.add('Comment not leading a template literal.', () => {

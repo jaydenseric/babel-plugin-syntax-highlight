@@ -44,7 +44,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
           // characters until the end. Examples:
           // 1. /* syntax-highlight css */
           // 2. // syntax-highlight css
-          const match = /^\s*syntax-highlight(?:\s+([^\s]+))?\s*$/m.exec(
+          const match = /^\s*syntax-highlight(?:\s+([^\s]+))?\s*$/mu.exec(
             // A comment value excludes the actual comment syntax.
             comment.value
           )
@@ -110,7 +110,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
                     raw: highlightedCode
                       // Add a backslash before every ‘`’, ‘\’ and ‘${’.
                       // See: https://github.com/babel/babel/issues/9242#issuecomment-532529613
-                      .replace(/\\|`|\${/g, '\\$&'),
+                      .replace(/\\|`|\$\{/gu, '\\$&'),
                     cooked: highlightedCode
                   },
                   true
