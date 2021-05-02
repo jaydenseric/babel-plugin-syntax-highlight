@@ -5,6 +5,8 @@
 ### Major
 
 - Updated Node.js version support to `^12.20 || >= 14.13`.
+- Updated dev dependencies, some of which require newer Node.js versions than were previously supported.
+- The tests are now ESM in an `.mjs` file instead of CJS in a `.js` file.
 
 ### Patch
 
@@ -16,6 +18,10 @@
   - Run with Node.js v12, v14, v15, v16.
   - Use the simpler [`npm install-test`](https://docs.npmjs.com/cli/v7/commands/npm-install-test) command.
   - Don’t specify the `CI` environment variable as it’s set by default.
+- Updated the package scripts:
+  - Simpler JSDoc related scripts now that [`jsdoc-md`](https://npm.im/jsdoc-md) v10 automatically generates a Prettier formatted readme.
+  - Added a `test:jsdoc` script that checks the readme API docs are up to date with the source JSDoc.
+  - Simpler `test:prettier` script arguments.
 - Removed `npm-debug.log` from the `.gitignore` file as npm [v4.2.0](https://github.com/npm/npm/releases/tag/v4.2.0)+ doesn’t create it in the current working directory.
 - Updated the EditorConfig.
 - Removed the readme “Support” section.

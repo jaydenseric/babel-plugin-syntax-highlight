@@ -59,7 +59,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
             languageSpecifierComments.push({
               leadingCommentIndex,
               comment,
-              languageName: match[1]
+              languageName: match[1],
             })
           }
         })
@@ -111,16 +111,16 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
                       // Add a backslash before every ‘`’, ‘\’ and ‘${’.
                       // See: https://github.com/babel/babel/issues/9242#issuecomment-532529613
                       .replace(/\\|`|\$\{/gu, '\\$&'),
-                    cooked: highlightedCode
+                    cooked: highlightedCode,
                   },
                   true
-                )
+                ),
               ],
               []
             )
           )
         }
-      }
-    }
+      },
+    },
   }
 }

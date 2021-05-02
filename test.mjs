@@ -1,9 +1,7 @@
-'use strict'
-
-const assert = require('assert').strict
-const babel = require('@babel/core')
-const { TestDirector } = require('test-director')
-const babelPluginSyntaxHighlight = require('.')
+import { strictEqual, throws } from 'assert'
+import babel from '@babel/core'
+import TestDirector from 'test-director'
+import babelPluginSyntaxHighlight from './index.js'
 
 const tests = new TestDirector()
 
@@ -13,7 +11,7 @@ const tests = new TestDirector()
  * @param {RegExp} messageRegex RegEx to check the error message against.
  * @returns {Function} Error validator.
  */
-const annotatedBabelSyntaxErrorValidator = messageRegex => error =>
+const annotatedBabelSyntaxErrorValidator = (messageRegex) => (error) =>
   // Error is a Babel syntax error.
   error.name === 'SyntaxError' &&
   // Error has a particular message.
@@ -22,25 +20,25 @@ const annotatedBabelSyntaxErrorValidator = messageRegex => error =>
   />.+\d+.+\|.+\^/su.test(error.message)
 
 tests.add('Line comment expression statement.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform('// syntax-highlight graphql\n`scalar Upload`', {
-      plugins: [babelPluginSyntaxHighlight]
+      plugins: [babelPluginSyntaxHighlight],
     }).code,
     '`<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`;'
   )
 })
 
 tests.add('Block comment expression statement.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform('/* syntax-highlight graphql */ `scalar Upload`', {
-      plugins: [babelPluginSyntaxHighlight]
+      plugins: [babelPluginSyntaxHighlight],
     }).code,
     '`<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`;'
   )
 })
 
 tests.add('Variable declarator.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform(
       'const a = /* syntax-highlight graphql */ `scalar Upload`',
       { plugins: [babelPluginSyntaxHighlight] }
@@ -50,7 +48,7 @@ tests.add('Variable declarator.', () => {
 })
 
 tests.add('Arrow function expression.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform(
       'const a = () => /* syntax-highlight graphql */ `scalar Upload`',
       { plugins: [babelPluginSyntaxHighlight] }
@@ -60,7 +58,7 @@ tests.add('Arrow function expression.', () => {
 })
 
 tests.add('Object property.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform(
       'const a = { b: /* syntax-highlight graphql */ `scalar Upload` }',
       { plugins: [babelPluginSyntaxHighlight] }
@@ -70,7 +68,7 @@ tests.add('Object property.', () => {
 })
 
 tests.add('Template literal escapes.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform(
       // Use markup for simple output. Backslash escaping of ‘`’, ‘\’ and ‘${’
       // (only if ‘$’ is followed by ‘{’) is being tested.
@@ -82,34 +80,34 @@ tests.add('Template literal escapes.', () => {
 })
 
 tests.add('Unrelated expression statement template literal.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform('``', {
-      plugins: [babelPluginSyntaxHighlight]
+      plugins: [babelPluginSyntaxHighlight],
     }).code,
     '``;'
   )
 })
 
 tests.add('Unrelated variable declaration template literal.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform('const a = ``', {
-      plugins: [babelPluginSyntaxHighlight]
+      plugins: [babelPluginSyntaxHighlight],
     }).code,
     'const a = ``;'
   )
 })
 
 tests.add('Unrelated comment and template literal.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform('/* GraphQL */ ``', {
-      plugins: [babelPluginSyntaxHighlight]
+      plugins: [babelPluginSyntaxHighlight],
     }).code,
     '/* GraphQL */\n``;'
   )
 })
 
 tests.add('Multiple relevant and irrelevant comments.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform(
       '/* syntax-highlight graphql */ /* GraphQL */ `scalar Upload`',
       { plugins: [babelPluginSyntaxHighlight] }
@@ -119,7 +117,7 @@ tests.add('Multiple relevant and irrelevant comments.', () => {
 })
 
 tests.add('Multiple relevant comments.', () => {
-  assert.throws(() => {
+  throws(() => {
     babel.transform(
       '/* syntax-highlight css */ /* syntax-highlight graphql */ `scalar Upload`',
       { plugins: [babelPluginSyntaxHighlight] }
@@ -128,33 +126,33 @@ tests.add('Multiple relevant comments.', () => {
 })
 
 tests.add('Comment missing the language name.', () => {
-  assert.throws(() => {
+  throws(() => {
     babel.transform('/* syntax-highlight */ ``', {
-      plugins: [babelPluginSyntaxHighlight]
+      plugins: [babelPluginSyntaxHighlight],
     })
   }, annotatedBabelSyntaxErrorValidator(/Missing the Prism\.js language name\./u))
 })
 
 tests.add('Unavailable Prism.js language name.', () => {
-  assert.throws(() => {
+  throws(() => {
     babel.transform('/* syntax-highlight _ */ ``', {
-      plugins: [babelPluginSyntaxHighlight]
+      plugins: [babelPluginSyntaxHighlight],
     })
   }, annotatedBabelSyntaxErrorValidator(/`_` isn’t an available Prism\.js language name\./u))
 })
 
 tests.add('Unsupported template literal expression.', () => {
-  assert.throws(() => {
+  throws(() => {
     babel.transform("/* syntax-highlight graphql */ `${''}`", {
-      plugins: [babelPluginSyntaxHighlight]
+      plugins: [babelPluginSyntaxHighlight],
     })
   }, annotatedBabelSyntaxErrorValidator(/Template literal expressions aren’t supported\./u))
 })
 
 tests.add('Comment not leading a template literal.', () => {
-  assert.strictEqual(
+  strictEqual(
     babel.transform('/* syntax-highlight graphql */', {
-      plugins: [babelPluginSyntaxHighlight]
+      plugins: [babelPluginSyntaxHighlight],
     }).code,
     '/* syntax-highlight graphql */'
   )
