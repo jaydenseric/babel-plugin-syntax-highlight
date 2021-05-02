@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
 
-const Prism = require('prismjs')
-const loadLanguages = require('prismjs/components/index')
+const Prism = require('prismjs');
+const loadLanguages = require('prismjs/components/index');
 
 // Load every available Prism.js language.
-loadLanguages()
+loadLanguages();
 
 module.exports = function babelPluginSyntaxHighlight({ types }) {
   return {
@@ -29,12 +29,12 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
           ? path.node.leadingComments
           : path.parent.type === 'ExpressionStatement'
           ? path.parent.leadingComments
-          : null
+          : null;
 
         // Skip this template literal if there are no leading comments.
-        if (!leadingComments) return
+        if (!leadingComments) return;
 
-        const languageSpecifierComments = []
+        const languageSpecifierComments = [];
 
         leadingComments.forEach((comment, leadingCommentIndex) => {
           // A matching comment begins with optional whitespace (including
@@ -47,51 +47,51 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
           const match = /^\s*syntax-highlight(?:\s+([^\s]+))?\s*$/mu.exec(
             // A comment value excludes the actual comment syntax.
             comment.value
-          )
+          );
 
           if (match) {
             if (!match[1])
               throw state.buildCodeFrameError(
                 comment,
                 'Missing the Prism.js language name.'
-              )
+              );
 
             languageSpecifierComments.push({
               leadingCommentIndex,
               comment,
               languageName: match[1],
-            })
+            });
           }
-        })
+        });
 
         if (languageSpecifierComments.length) {
           if (languageSpecifierComments.length > 1)
             throw state.buildCodeFrameError(
               languageSpecifierComments[1].comment,
               'Multiple Prism.js language names specified.'
-            )
+            );
 
           const prismLanguage =
-            Prism.languages[languageSpecifierComments[0].languageName]
+            Prism.languages[languageSpecifierComments[0].languageName];
 
           if (!prismLanguage)
             throw state.buildCodeFrameError(
               languageSpecifierComments[0].comment,
               `\`${languageSpecifierComments[0].languageName}\` isn’t an available Prism.js language name.`
-            )
+            );
 
           if (path.node.expressions.length)
             throw state.buildCodeFrameError(
               path.node.expressions[0],
               'Template literal expressions aren’t supported.'
-            )
+            );
 
           // Create the syntax highlighted code string.
           const highlightedCode = Prism.highlight(
             // Get the code string from the template literal.
             path.node.quasis[0].value.cooked,
             prismLanguage
-          )
+          );
 
           // Remove the language specifier comment. This has to happen before
           // replacing the template literal, or else the triggered revisit will
@@ -99,7 +99,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
           leadingComments.splice(
             languageSpecifierComments[0].leadingCommentIndex,
             1
-          )
+          );
 
           // Replace the template literal with the syntax highlighted version.
           path.replaceWith(
@@ -118,9 +118,9 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
               ],
               []
             )
-          )
+          );
         }
       },
     },
-  }
-}
+  };
+};

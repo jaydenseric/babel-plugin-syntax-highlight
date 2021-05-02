@@ -1,9 +1,9 @@
-import { strictEqual, throws } from 'assert'
-import babel from '@babel/core'
-import TestDirector from 'test-director'
-import babelPluginSyntaxHighlight from './index.js'
+import { strictEqual, throws } from 'assert';
+import babel from '@babel/core';
+import TestDirector from 'test-director';
+import babelPluginSyntaxHighlight from './index.js';
 
-const tests = new TestDirector()
+const tests = new TestDirector();
 
 /**
  * Creates a function that validates an error is a Babel syntax error with a
@@ -17,7 +17,7 @@ const annotatedBabelSyntaxErrorValidator = (messageRegex) => (error) =>
   // Error has a particular message.
   messageRegex.test(error.message) &&
   // Error message has an annotated source location.
-  />.+\d+.+\|.+\^/su.test(error.message)
+  />.+\d+.+\|.+\^/su.test(error.message);
 
 tests.add('Line comment expression statement.', () => {
   strictEqual(
@@ -25,8 +25,8 @@ tests.add('Line comment expression statement.', () => {
       plugins: [babelPluginSyntaxHighlight],
     }).code,
     '`<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`;'
-  )
-})
+  );
+});
 
 tests.add('Block comment expression statement.', () => {
   strictEqual(
@@ -34,8 +34,8 @@ tests.add('Block comment expression statement.', () => {
       plugins: [babelPluginSyntaxHighlight],
     }).code,
     '`<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`;'
-  )
-})
+  );
+});
 
 tests.add('Variable declarator.', () => {
   strictEqual(
@@ -44,8 +44,8 @@ tests.add('Variable declarator.', () => {
       { plugins: [babelPluginSyntaxHighlight] }
     ).code,
     'const a = `<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`;'
-  )
-})
+  );
+});
 
 tests.add('Arrow function expression.', () => {
   strictEqual(
@@ -54,8 +54,8 @@ tests.add('Arrow function expression.', () => {
       { plugins: [babelPluginSyntaxHighlight] }
     ).code,
     'const a = () => `<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`;'
-  )
-})
+  );
+});
 
 tests.add('Object property.', () => {
   strictEqual(
@@ -64,8 +64,8 @@ tests.add('Object property.', () => {
       { plugins: [babelPluginSyntaxHighlight] }
     ).code,
     'const a = {\n  b: `<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`\n};'
-  )
-})
+  );
+});
 
 tests.add('Template literal escapes.', () => {
   strictEqual(
@@ -76,8 +76,8 @@ tests.add('Template literal escapes.', () => {
       { plugins: [babelPluginSyntaxHighlight] }
     ).code,
     '`\\`\\${ $ \\\\ \\` \\``;'
-  )
-})
+  );
+});
 
 tests.add('Unrelated expression statement template literal.', () => {
   strictEqual(
@@ -85,8 +85,8 @@ tests.add('Unrelated expression statement template literal.', () => {
       plugins: [babelPluginSyntaxHighlight],
     }).code,
     '``;'
-  )
-})
+  );
+});
 
 tests.add('Unrelated variable declaration template literal.', () => {
   strictEqual(
@@ -94,8 +94,8 @@ tests.add('Unrelated variable declaration template literal.', () => {
       plugins: [babelPluginSyntaxHighlight],
     }).code,
     'const a = ``;'
-  )
-})
+  );
+});
 
 tests.add('Unrelated comment and template literal.', () => {
   strictEqual(
@@ -103,8 +103,8 @@ tests.add('Unrelated comment and template literal.', () => {
       plugins: [babelPluginSyntaxHighlight],
     }).code,
     '/* GraphQL */\n``;'
-  )
-})
+  );
+});
 
 tests.add('Multiple relevant and irrelevant comments.', () => {
   strictEqual(
@@ -113,41 +113,41 @@ tests.add('Multiple relevant and irrelevant comments.', () => {
       { plugins: [babelPluginSyntaxHighlight] }
     ).code,
     '/* GraphQL */\n`<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`;'
-  )
-})
+  );
+});
 
 tests.add('Multiple relevant comments.', () => {
   throws(() => {
     babel.transform(
       '/* syntax-highlight css */ /* syntax-highlight graphql */ `scalar Upload`',
       { plugins: [babelPluginSyntaxHighlight] }
-    )
-  }, annotatedBabelSyntaxErrorValidator(/Multiple Prism\.js language names specified\./u))
-})
+    );
+  }, annotatedBabelSyntaxErrorValidator(/Multiple Prism\.js language names specified\./u));
+});
 
 tests.add('Comment missing the language name.', () => {
   throws(() => {
     babel.transform('/* syntax-highlight */ ``', {
       plugins: [babelPluginSyntaxHighlight],
-    })
-  }, annotatedBabelSyntaxErrorValidator(/Missing the Prism\.js language name\./u))
-})
+    });
+  }, annotatedBabelSyntaxErrorValidator(/Missing the Prism\.js language name\./u));
+});
 
 tests.add('Unavailable Prism.js language name.', () => {
   throws(() => {
     babel.transform('/* syntax-highlight _ */ ``', {
       plugins: [babelPluginSyntaxHighlight],
-    })
-  }, annotatedBabelSyntaxErrorValidator(/`_` isn’t an available Prism\.js language name\./u))
-})
+    });
+  }, annotatedBabelSyntaxErrorValidator(/`_` isn’t an available Prism\.js language name\./u));
+});
 
 tests.add('Unsupported template literal expression.', () => {
   throws(() => {
     babel.transform("/* syntax-highlight graphql */ `${''}`", {
       plugins: [babelPluginSyntaxHighlight],
-    })
-  }, annotatedBabelSyntaxErrorValidator(/Template literal expressions aren’t supported\./u))
-})
+    });
+  }, annotatedBabelSyntaxErrorValidator(/Template literal expressions aren’t supported\./u));
+});
 
 tests.add('Comment not leading a template literal.', () => {
   strictEqual(
@@ -155,7 +155,7 @@ tests.add('Comment not leading a template literal.', () => {
       plugins: [babelPluginSyntaxHighlight],
     }).code,
     '/* syntax-highlight graphql */'
-  )
-})
+  );
+});
 
-tests.run()
+tests.run();

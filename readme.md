@@ -31,7 +31,7 @@ In a file transpiled by Babel, lead a template literal containing syntax to high
 ```js
 const highlighted = /* syntax-highlight graphql */ `
   scalar Upload
-`
+`;
 ```
 
 The comment may be surrounded by others on the same or other lines for editor syntax highlighting, [Prettier](https://prettier.io) formatting, etc.
@@ -41,7 +41,7 @@ const highlighted =
   /* syntax-highlight graphql */
   /* GraphQL */ `
     scalar Upload
-  `
+  `;
 ```
 
 A block or line comment may be used:
@@ -49,13 +49,13 @@ A block or line comment may be used:
 ```js
 const highlighted =
   // syntax-highlight graphql
-  `scalar Upload`
+  `scalar Upload`;
 ```
 
 The plugin removes the comment (preserving surrounding comments) and transforms the template literal contents into HTML:
 
 ```js
-const highlighted = `<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`
+const highlighted = `<span class="token keyword">scalar</span> <span class="token class-name">Upload</span>`;
 ```
 
 Styling the HTML is up to you; there are many theme stylesheets available. Often themes require `<pre>` and `<code>` containers with appropriate language classes.
