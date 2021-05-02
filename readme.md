@@ -70,7 +70,11 @@ const SyntaxHighlightedCode = ({ language, code }) => (
       dangerouslySetInnerHTML={{ __html: code }}
     />
   </pre>
-)
+);
+```
 
-<SyntaxHighlightedCode language="css" code={highlighted} />
+```jsx
+const syntaxHighlightedCode = (
+  <SyntaxHighlightedCode language="css" code={highlighted} />
+);
 ```
