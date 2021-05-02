@@ -74,7 +74,3 @@ const SyntaxHighlightedCode = ({ language, code }) => (
 
 <SyntaxHighlightedCode language="css" code={highlighted} />
 ```
-
-## Support
-
-- Node.js v10+
