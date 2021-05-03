@@ -1,7 +1,7 @@
 'use strict';
 
 const Prism = require('prismjs');
-const loadLanguages = require('prismjs/components/index');
+const loadLanguages = require('prismjs/components/index.js');
 
 // Load every available Prism.js language.
 loadLanguages();

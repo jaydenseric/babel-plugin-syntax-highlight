@@ -28,6 +28,7 @@
 - Removed `npm-debug.log` from the `.gitignore` file as npm [v4.2.0](https://github.com/npm/npm/releases/tag/v4.2.0)+ doesn’t create it in the current working directory.
 - Updated the EditorConfig.
 - Removed the readme “Support” section.
+- Added the `.js` file extension to a [`prismjs`](https://npm.im/prismjs) `require` path.
 - Always use regex `u` mode.
 - Readme tweaks.
 
