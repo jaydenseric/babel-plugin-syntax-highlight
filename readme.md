@@ -12,21 +12,23 @@ Build-time syntax highlighting advantages:
 
 ## Setup
 
-To install from [npm](https://npmjs.com) run:
+To install with [npm](https://npmjs.com/get-npm), run:
 
 ```sh
 npm install babel-plugin-syntax-highlight --save-dev
 ```
 
-Configure Babel to use the plugin:
+Configure [Babel](https://babeljs.io) to use the plugin:
 
 ```json
-{ "plugins": ["syntax-highlight"] }
+{
+  "plugins": ["syntax-highlight"]
+}
 ```
 
 ## Usage
 
-In a file transpiled by Babel, lead a template literal containing syntax to highlight with a comment containing `syntax-highlight` and a [Prism.js language name](https://prismjs.com/#supported-languages):
+In a file transpiled by [Babel](https://babeljs.io), lead a template literal containing syntax to highlight with a comment containing `syntax-highlight` and a [Prism.js language name](https://prismjs.com/#supported-languages):
 
 ```js
 const highlighted = /* syntax-highlight graphql */ `
@@ -63,14 +65,16 @@ Styling the HTML is up to you; there are many theme stylesheets available. Often
 ### React
 
 ```jsx
-const SyntaxHighlightedCode = ({ language, code }) => (
-  <pre className={`language-${language}`}>
-    <code
-      className={`language-${language}`}
-      dangerouslySetInnerHTML={{ __html: code }}
-    />
-  </pre>
-);
+function SyntaxHighlightedCode({ language, code }) {
+  return (
+    <pre className={`language-${language}`}>
+      <code
+        className={`language-${language}`}
+        dangerouslySetInnerHTML={{ __html: code }}
+      />
+    </pre>
+  );
+}
 ```
 
 ```jsx

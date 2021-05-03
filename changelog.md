@@ -29,7 +29,7 @@
 - Updated the EditorConfig.
 - Removed the readme “Support” section.
 - Always use regex `u` mode.
-- Improved code examples.
+- Readme tweaks.
 
 ## 2.1.0
 
