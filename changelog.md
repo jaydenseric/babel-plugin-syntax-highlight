@@ -1,6 +1,6 @@
 # babel-plugin-syntax-highlight changelog
 
-## Next
+## 3.0.0
 
 ### Major
 
