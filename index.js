@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-const Prism = require('prismjs');
-const loadLanguages = require('prismjs/components/index.js');
+const Prism = require("prismjs");
+const loadLanguages = require("prismjs/components/index.js");
 
 // Load every available Prism.js language.
 loadLanguages();
 
 module.exports = function babelPluginSyntaxHighlight({ types }) {
   return {
-    name: 'syntax-highlight',
+    name: "syntax-highlight",
     visitor: {
       TemplateLiteral(
         path,
@@ -27,7 +27,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
         // ancestor, instead of the template literal.
         const leadingComments = path.node.leadingComments
           ? path.node.leadingComments
-          : path.parent.type === 'ExpressionStatement'
+          : path.parent.type === "ExpressionStatement"
           ? path.parent.leadingComments
           : null;
 
@@ -53,7 +53,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
             if (!match[1])
               throw state.buildCodeFrameError(
                 comment,
-                'Missing the Prism.js language name.'
+                "Missing the Prism.js language name."
               );
 
             languageSpecifierComments.push({
@@ -68,7 +68,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
           if (languageSpecifierComments.length > 1)
             throw state.buildCodeFrameError(
               languageSpecifierComments[1].comment,
-              'Multiple Prism.js language names specified.'
+              "Multiple Prism.js language names specified."
             );
 
           const prismLanguage =
@@ -83,7 +83,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
           if (path.node.expressions.length)
             throw state.buildCodeFrameError(
               path.node.expressions[0],
-              'Template literal expressions aren’t supported.'
+              "Template literal expressions aren’t supported."
             );
 
           // Create the syntax highlighted code string.
@@ -110,7 +110,7 @@ module.exports = function babelPluginSyntaxHighlight({ types }) {
                     raw: highlightedCode
                       // Add a backslash before every ‘`’, ‘\’ and ‘${’.
                       // See: https://github.com/babel/babel/issues/9242#issuecomment-532529613
-                      .replace(/\\|`|\$\{/gu, '\\$&'),
+                      .replace(/\\|`|\$\{/gu, "\\$&"),
                     cooked: highlightedCode,
                   },
                   true
