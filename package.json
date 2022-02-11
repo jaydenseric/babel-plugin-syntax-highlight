@@ -49,10 +49,10 @@
     "test-director": "^8.0.2"
   },
   "scripts": {
-    "test": "npm run test:eslint && npm run test:prettier && npm run test:api",
-    "test:eslint": "eslint --ext mjs,js .",
-    "test:prettier": "prettier -c .",
-    "test:api": "coverage-node test.mjs",
+    "eslint": "eslint .",
+    "prettier": "prettier -c .",
+    "tests": "coverage-node test.mjs",
+    "test": "npm run eslint && npm run prettier && npm run tests",
     "prepublishOnly": "npm test"
   }
 }
