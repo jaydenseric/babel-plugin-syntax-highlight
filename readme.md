@@ -10,7 +10,7 @@ Build-time syntax highlighting advantages:
 - 🖌 Less client rendering work.
 - 🎨 Beautiful code the instant the HTML and CSS loads.
 
-## Setup
+## Installation
 
 To install with [npm](https://npmjs.com/get-npm), run:
 
@@ -26,7 +26,7 @@ Configure [Babel](https://babeljs.io) to use the plugin:
 }
 ```
 
-## Usage
+## Examples
 
 In a file transpiled by [Babel](https://babeljs.io), lead a template literal containing syntax to highlight with a comment containing `syntax-highlight` and a [Prism.js language name](https://prismjs.com/#supported-languages):
 
@@ -62,7 +62,7 @@ const highlighted = `<span class="token keyword">scalar</span> <span class="toke
 
 Styling the HTML is up to you; there are many theme stylesheets available. Often themes require `<pre>` and `<code>` containers with appropriate language classes.
 
-### React
+A [React](https://reactjs.org) component can be used display highlighted code with appropriate HTML and styles:
 
 ```jsx
 function SyntaxHighlightedCode({ language, code }) {
