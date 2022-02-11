@@ -12,6 +12,7 @@
 
 - Updated dependencies.
 - Also run GitHub Actions CI with Node.js v17, and drop v15.
+- Simplified dev dependencies and config for ESLint.
 - Simplified package scripts.
 - Configured Prettier option `singleQuote` to the default, `false`.
 - Improved documentation.

@@ -1,6 +1,7 @@
-import { strictEqual, throws } from "assert";
 import babel from "@babel/core";
+import { strictEqual, throws } from "assert";
 import TestDirector from "test-director";
+
 import babelPluginSyntaxHighlight from "./index.js";
 
 const tests = new TestDirector();
