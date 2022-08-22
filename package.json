@@ -36,7 +36,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
-    "@babel/eslint-parser": "^7.18.9",
     "coverage-node": "^8.0.0",
     "eslint": "^8.22.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
