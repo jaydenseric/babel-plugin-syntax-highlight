@@ -4,16 +4,17 @@
 
 ### Major
 
-- Updated Node.js support to `^12.22.0 || ^14.17.0 || >= 16.0.0`.
+- Updated Node.js support to `^14.17.0 || ^16.0.0 || >= 18.0.0`.
 - Updated dev dependencies, some of which require newer Node.js versions than previously supported.
 - Removed `./package` from the package `exports` field; the full `package.json` filename must be used in a `require` path.
 
 ### Patch
 
 - Updated dependencies.
-- Also run GitHub Actions CI with Node.js v17, and drop v15.
 - Simplified dev dependencies and config for ESLint.
 - Simplified package scripts.
+- Updated GitHub Actions CI config:
+  - Run tests with Node.js v14, v16, v18.
 - Configured Prettier option `singleQuote` to the default, `false`.
 - Improved documentation.
 
