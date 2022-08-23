@@ -18,6 +18,7 @@
   - Updated `actions/checkout` to v3.
   - Updated `actions/setup-node` to v3.
 - Configured Prettier option `singleQuote` to the default, `false`.
+- Updated tests to use the [`@babel/core`](https://npm.im/@babel/core) function `transformAsync` instead of `transform`.
 - Improved documentation.
 
 ## 3.0.0
