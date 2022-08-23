@@ -1,24 +1,11 @@
 import babel from "@babel/core";
-import { rejects, strictEqual } from "assert";
+import { ok, strictEqual } from "assert";
+import assertSnapshot from "snapshot-assertion";
 import TestDirector from "test-director";
 
 import babelPluginSyntaxHighlight from "./index.js";
 
 const tests = new TestDirector();
-
-/**
- * Creates a function that validates an error is a Babel syntax error with a
- * particular message that contains an annotated source location.
- * @param {RegExp} messageRegex RegEx to check the error message against.
- * @returns {Function} Error validator.
- */
-const annotatedBabelSyntaxErrorValidator = (messageRegex) => (error) =>
-  // Error is a Babel syntax error.
-  error.name === "SyntaxError" &&
-  // Error has a particular message.
-  messageRegex.test(error.message) &&
-  // Error message has an annotated source location.
-  />.+\d+.+\|.+\^/su.test(error.message);
 
 tests.add("Line comment expression statement.", async () => {
   const result = await babel.transformAsync(
@@ -132,44 +119,90 @@ tests.add("Multiple relevant and irrelevant comments.", async () => {
 });
 
 tests.add("Multiple relevant comments.", async () => {
-  await rejects(
-    babel.transformAsync(
+  let error;
+
+  try {
+    await babel.transformAsync(
       "/* syntax-highlight css */ /* syntax-highlight graphql */ `scalar Upload`",
       { plugins: [babelPluginSyntaxHighlight] }
-    ),
-    annotatedBabelSyntaxErrorValidator(
-      /Multiple Prism\.js language names specified\./u
+    );
+  } catch (e) {
+    error = e;
+  }
+
+  ok(error instanceof Error);
+
+  await assertSnapshot(
+    error.message,
+    new URL(
+      "./test/snapshots/multiple-relevant-comments-error.ans",
+      import.meta.url
     )
   );
 });
 
 tests.add("Comment missing the language name.", async () => {
-  await rejects(
-    babel.transformAsync("/* syntax-highlight */ ``", {
+  let error;
+
+  try {
+    await babel.transformAsync("/* syntax-highlight */ ``", {
       plugins: [babelPluginSyntaxHighlight],
-    }),
-    annotatedBabelSyntaxErrorValidator(/Missing the Prism\.js language name\./u)
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  ok(error instanceof Error);
+
+  await assertSnapshot(
+    error.message,
+    new URL(
+      "./test/snapshots/comment-missing-the-language-name-error.ans",
+      import.meta.url
+    )
   );
 });
 
 tests.add("Unavailable Prism.js language name.", async () => {
-  await rejects(
-    babel.transformAsync("/* syntax-highlight _ */ ``", {
+  let error;
+
+  try {
+    await babel.transformAsync("/* syntax-highlight _ */ ``", {
       plugins: [babelPluginSyntaxHighlight],
-    }),
-    annotatedBabelSyntaxErrorValidator(
-      /`_` isn’t an available Prism\.js language name\./u
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  ok(error instanceof Error);
+
+  await assertSnapshot(
+    error.message,
+    new URL(
+      "./test/snapshots/unavailable-prismjs-language-name-error.ans",
+      import.meta.url
     )
   );
 });
 
 tests.add("Unsupported template literal expression.", async () => {
-  await rejects(
-    babel.transformAsync('/* syntax-highlight graphql */ `${""}`', {
+  let error;
+
+  try {
+    await babel.transformAsync('/* syntax-highlight graphql */ `${""}`', {
       plugins: [babelPluginSyntaxHighlight],
-    }),
-    annotatedBabelSyntaxErrorValidator(
-      /Template literal expressions aren’t supported\./u
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  ok(error instanceof Error);
+
+  await assertSnapshot(
+    error.message,
+    new URL(
+      "./test/snapshots/unsupported-template-literal-expression-error.ans",
+      import.meta.url
     )
   );
 });

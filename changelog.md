@@ -18,7 +18,9 @@
   - Updated `actions/checkout` to v3.
   - Updated `actions/setup-node` to v3.
 - Configured Prettier option `singleQuote` to the default, `false`.
-- Updated tests to use the [`@babel/core`](https://npm.im/@babel/core) function `transformAsync` instead of `transform`.
+- Updated tests:
+  - Use the [`@babel/core`](https://npm.im/@babel/core) function `transformAsync` instead of `transform`.
+  - Use a new [`snapshot-assertion`](https://npm.im/snapshot-assertion) dev dependency to snapshot test error messages.
 - Improved documentation.
 
 ## 3.0.0

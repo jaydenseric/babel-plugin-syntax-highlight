@@ -40,12 +40,13 @@
     "eslint": "^8.22.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^2.7.1",
+    "snapshot-assertion": "^5.0.0",
     "test-director": "^10.0.0"
   },
   "scripts": {
     "eslint": "eslint .",
     "prettier": "prettier -c .",
-    "tests": "coverage-node test.mjs",
+    "tests": "FORCE_COLOR=1 coverage-node test.mjs",
     "test": "npm run eslint && npm run prettier && npm run tests",
     "prepublishOnly": "npm test"
   }
