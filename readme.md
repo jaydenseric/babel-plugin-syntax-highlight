@@ -1,7 +1,5 @@
 # babel-plugin-syntax-highlight
 
-[![npm version](https://badgen.net/npm/v/babel-plugin-syntax-highlight)](https://npm.im/babel-plugin-syntax-highlight) [![CI status](https://github.com/jaydenseric/babel-plugin-syntax-highlight/workflows/CI/badge.svg)](https://github.com/jaydenseric/babel-plugin-syntax-highlight/actions)
-
 A [Babel](https://babeljs.io) plugin that transforms the code contents of template literals lead by comments specifying a [Prism.js](https://prismjs.com) language into syntax highlighted HTML.
 
 Build-time syntax highlighting advantages:
@@ -12,7 +10,7 @@ Build-time syntax highlighting advantages:
 
 ## Installation
 
-To install with [npm](https://npmjs.com/get-npm), run:
+To install [`babel-plugin-syntax-highlight`](https://npm.im/babel-plugin-syntax-highlight) with [npm](https://npmjs.com/get-npm), run:
 
 ```sh
 npm install babel-plugin-syntax-highlight --save-dev
@@ -82,3 +80,9 @@ const syntaxHighlightedCode = (
   <SyntaxHighlightedCode language="css" code={highlighted} />
 );
 ```
+
+## Requirements
+
+Supported runtime environments:
+
+- [Node.js](https://nodejs.org) versions `^14.17.0 || ^16.0.0 || >= 18.0.0`.
