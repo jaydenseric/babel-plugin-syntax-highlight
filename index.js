@@ -121,11 +121,23 @@ function babelPluginSyntaxHighlight({ types }) {
               "Template literal expressions aren’t supported."
             );
 
+          /** The code string from the template literal. */
+          const text = path.node.quasis[0].value.cooked;
+
+          if (typeof text !== "string")
+            // Babel can’t provide the cooked string, possibly due to an invalid
+            // escape sequence in the raw string. Normally that results in a
+            // Babel parser error, but that won’t happen if the Babel transform
+            // option `parserOpts.errorRecovery` is enabled.
+            // @ts-ignore Incorrect types.
+            throw state.buildCodeFrameError(
+              path.node.quasis[0],
+              "Template literal string can’t be cooked."
+            );
+
           /** The syntax highlighted code string. */
           const highlightedCode = Prism.highlight(
-            // Get the code string from the template literal.
-            // @ts-ignore Todo: Investigate this.
-            path.node.quasis[0].value.cooked,
+            text,
             prismLanguage,
             languageName
           );

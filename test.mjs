@@ -237,6 +237,34 @@ tests.add("Unsupported template literal expression.", async () => {
   );
 });
 
+tests.add("Template literal string that can’t be cooked.", async () => {
+  let error;
+
+  try {
+    await babel.transformAsync(
+      "/* syntax-highlight text */ `Invalid escape sequence: \\unicode`",
+      {
+        plugins: [babelPluginSyntaxHighlight],
+        parserOpts: {
+          errorRecovery: true,
+        },
+      }
+    );
+  } catch (e) {
+    error = e;
+  }
+
+  ok(error instanceof Error);
+
+  await assertSnapshot(
+    error.message,
+    new URL(
+      "./test/snapshots/template-literal-that-cant-be-cooked-error.ans",
+      import.meta.url
+    )
+  );
+});
+
 tests.add("Comment not leading a template literal.", async () => {
   const result = await babel.transformAsync("/* syntax-highlight graphql */", {
     plugins: [babelPluginSyntaxHighlight],
