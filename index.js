@@ -108,7 +108,7 @@ function babelPluginSyntaxHighlight({ types }) {
               `\`${languageName}\` isn’t an available Prism.js language name.`
             );
 
-          const prismLanguage = /** @type {import("prismjs").Grammar} */ (
+          const prismGrammar = /** @type {import("prismjs").Grammar} */ (
             Prism.languages[
               /** @type {keyof typeof Prism.languages} */ (languageName)
             ]
@@ -138,7 +138,7 @@ function babelPluginSyntaxHighlight({ types }) {
           /** The syntax highlighted code string. */
           const highlightedCode = Prism.highlight(
             text,
-            prismLanguage,
+            prismGrammar,
             languageName
           );
 
