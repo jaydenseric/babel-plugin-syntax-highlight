@@ -23,7 +23,6 @@
     "index.js"
   ],
   "sideEffects": false,
-  "main": "./index.js",
   "exports": {
     ".": "./index.js",
     "./package.json": "./package.json"
