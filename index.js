@@ -33,8 +33,10 @@ function babelPluginSyntaxHighlight({ types }) {
         // The user may mistakenly use multiple language specifier comments; all
         // must be gathered to be able to alert the user of their mistake.
 
-        // Find the leading comments. Sometimes Babel associates them with an
-        // ancestor, instead of the template literal.
+        /**
+         * The leading comments. Sometimes Babel associates them with an
+         * ancestor, instead of the template literal.
+         */
         const leadingComments = path.node.leadingComments
           ? path.node.leadingComments
           : path.parent.type === "ExpressionStatement"
@@ -119,7 +121,7 @@ function babelPluginSyntaxHighlight({ types }) {
               "Template literal expressions aren’t supported."
             );
 
-          // Create the syntax highlighted code string.
+          /** The syntax highlighted code string. */
           const highlightedCode = Prism.highlight(
             // Get the code string from the template literal.
             // @ts-ignore Todo: Investigate this.
