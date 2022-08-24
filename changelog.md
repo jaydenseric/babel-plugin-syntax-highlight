@@ -33,6 +33,7 @@
   - Removed the badges.
   - Changed headings.
   - Added a “Requirements” section.
+  - Added information about TypeScript config and [optimal JavaScript module design](https://jaydenseric.com/blog/optimal-javascript-module-design).
   - Added an “Exports” section.
 
 ## 3.0.0
