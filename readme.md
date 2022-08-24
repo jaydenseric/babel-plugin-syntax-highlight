@@ -86,3 +86,9 @@ const syntaxHighlightedCode = (
 Supported runtime environments:
 
 - [Node.js](https://nodejs.org) versions `^14.17.0 || ^16.0.0 || >= 18.0.0`.
+
+## Exports
+
+The [npm](https://npmjs.com) package [`babel-plugin-syntax-highlight`](https://npm.im/babel-plugin-syntax-highlight) features [optimal JavaScript module design](https://jaydenseric.com/blog/optimal-javascript-module-design). These CommonJS modules are exported via the [`package.json`](./package.json) field [`exports`](https://nodejs.org/api/packages.html#exports):
+
+- [`babelPluginSyntaxHighlight.js`](./babelPluginSyntaxHighlight.js)

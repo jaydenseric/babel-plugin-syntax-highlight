@@ -20,11 +20,12 @@
     "prism"
   ],
   "files": [
-    "index.js"
+    "babelPluginSyntaxHighlight.js"
   ],
   "sideEffects": false,
   "exports": {
-    ".": "./index.js",
+    ".": "./babelPluginSyntaxHighlight.js",
+    "./babelPluginSyntaxHighlight.js": "./babelPluginSyntaxHighlight.js",
     "./package.json": "./package.json"
   },
   "engines": {

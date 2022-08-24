@@ -8,6 +8,7 @@
 - Updated dev dependencies, some of which require newer Node.js versions than previously supported.
 - Removed the package `main` field.
 - Removed `./package` from the package `exports` field; the full `package.json` filename must be used in a `require` path.
+- Renamed the `index.js` module to `babelPluginSyntaxHighlight.js` and added it to the package `exports` field so it can be deep imported.
 - Implemented TypeScript types via JSDoc comments.
 
 ### Patch
@@ -32,6 +33,7 @@
   - Removed the badges.
   - Changed headings.
   - Added a “Requirements” section.
+  - Added an “Exports” section.
 
 ## 3.0.0
 

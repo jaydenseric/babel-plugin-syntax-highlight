@@ -5,7 +5,7 @@ import { ok, strictEqual } from "assert";
 import assertSnapshot from "snapshot-assertion";
 import TestDirector from "test-director";
 
-import babelPluginSyntaxHighlight from "./index.js";
+import babelPluginSyntaxHighlight from "./babelPluginSyntaxHighlight.js";
 
 const tests = new TestDirector();
 
@@ -137,7 +137,7 @@ tests.add("Multiple relevant comments.", async () => {
   await assertSnapshot(
     error.message,
     new URL(
-      "./test/snapshots/multiple-relevant-comments-error.ans",
+      "./test/snapshots/babelPluginSyntaxHighlight/multiple-relevant-comments-error.ans",
       import.meta.url
     )
   );
@@ -159,7 +159,7 @@ tests.add("Comment missing the language name.", async () => {
   await assertSnapshot(
     error.message,
     new URL(
-      "./test/snapshots/comment-missing-the-language-name-error.ans",
+      "./test/snapshots/babelPluginSyntaxHighlight/comment-missing-the-language-name-error.ans",
       import.meta.url
     )
   );
@@ -183,7 +183,7 @@ tests.add(
     await assertSnapshot(
       error.message,
       new URL(
-        "./test/snapshots/unavailable-prismjs-language-name-non-prism-languages-method-name-error.ans",
+        "./test/snapshots/babelPluginSyntaxHighlight/unavailable-prismjs-language-name-non-prism-languages-method-name-error.ans",
         import.meta.url
       )
     );
@@ -208,7 +208,7 @@ tests.add(
     await assertSnapshot(
       error.message,
       new URL(
-        "./test/snapshots/unavailable-prismjs-language-name-prism-languages-method-name-error.ans",
+        "./test/snapshots/babelPluginSyntaxHighlight/unavailable-prismjs-language-name-prism-languages-method-name-error.ans",
         import.meta.url
       )
     );
@@ -231,7 +231,7 @@ tests.add("Unsupported template literal expression.", async () => {
   await assertSnapshot(
     error.message,
     new URL(
-      "./test/snapshots/unsupported-template-literal-expression-error.ans",
+      "./test/snapshots/babelPluginSyntaxHighlight/unsupported-template-literal-expression-error.ans",
       import.meta.url
     )
   );
@@ -259,7 +259,7 @@ tests.add("Template literal string that can’t be cooked.", async () => {
   await assertSnapshot(
     error.message,
     new URL(
-      "./test/snapshots/template-literal-that-cant-be-cooked-error.ans",
+      "./test/snapshots/babelPluginSyntaxHighlight/template-literal-that-cant-be-cooked-error.ans",
       import.meta.url
     )
   );
