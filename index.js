@@ -122,7 +122,7 @@ function babelPluginSyntaxHighlight({ types }) {
           // Create the syntax highlighted code string.
           const highlightedCode = Prism.highlight(
             // Get the code string from the template literal.
-            // @ts-ignore
+            // @ts-ignore Todo: Investigate this.
             path.node.quasis[0].value.cooked,
             prismLanguage,
             languageName
