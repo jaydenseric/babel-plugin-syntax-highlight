@@ -25,6 +25,7 @@
 - Updated tests:
   - Use the [`@babel/core`](https://npm.im/@babel/core) function `transformAsync` instead of `transform`.
   - Use a new [`snapshot-assertion`](https://npm.im/snapshot-assertion) dev dependency to snapshot test error messages.
+- Added a `license.md` MIT License file.
 - Improved documentation.
 
 ## 3.0.0
