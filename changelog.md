@@ -21,6 +21,7 @@
 - Guard against the edge case where the specified Prism.js language name is the name of one of the `Prism.languages` methods, e.g. `extend`.
 - Gracefully error if a template literal string can’t be cooked, e.g. due to an invalid escape sequence with the Babel transform option `parserOpts.errorRecovery` enabled.
 - Updated GitHub Actions CI config:
+  - No longer run tests with Windows.
   - Run tests with Node.js v14, v16, v18.
   - Updated `actions/checkout` to v3.
   - Updated `actions/setup-node` to v3.
