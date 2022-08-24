@@ -7,12 +7,16 @@
 - Updated Node.js support to `^14.17.0 || ^16.0.0 || >= 18.0.0`.
 - Updated dev dependencies, some of which require newer Node.js versions than previously supported.
 - Removed `./package` from the package `exports` field; the full `package.json` filename must be used in a `require` path.
+- Implemented TypeScript types via JSDoc comments.
 
 ### Patch
 
 - Updated dependencies.
 - Simplified dev dependencies and config for ESLint.
 - Simplified package scripts.
+- Check TypeScript types via a new package `types` script.
+- Various type safety improvements.
+- Guard against the edge case where the specified Prism.js language name is the name of one of the `Prism.languages` methods, e.g. `extend`.
 - Updated GitHub Actions CI config:
   - Run tests with Node.js v14, v16, v18.
   - Updated `actions/checkout` to v3.

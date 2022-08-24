@@ -1,3 +1,5 @@
+// @ts-check
+
 import babel from "@babel/core";
 import { ok, strictEqual } from "assert";
 import assertSnapshot from "snapshot-assertion";
@@ -163,27 +165,55 @@ tests.add("Comment missing the language name.", async () => {
   );
 });
 
-tests.add("Unavailable Prism.js language name.", async () => {
-  let error;
+tests.add(
+  "Unavailable Prism.js language name, non `Prism.languages` method name.",
+  async () => {
+    let error;
 
-  try {
-    await babel.transformAsync("/* syntax-highlight _ */ ``", {
-      plugins: [babelPluginSyntaxHighlight],
-    });
-  } catch (e) {
-    error = e;
+    try {
+      await babel.transformAsync("/* syntax-highlight _ */ ``", {
+        plugins: [babelPluginSyntaxHighlight],
+      });
+    } catch (e) {
+      error = e;
+    }
+
+    ok(error instanceof Error);
+
+    await assertSnapshot(
+      error.message,
+      new URL(
+        "./test/snapshots/unavailable-prismjs-language-name-non-prism-languages-method-name-error.ans",
+        import.meta.url
+      )
+    );
   }
+);
 
-  ok(error instanceof Error);
+tests.add(
+  "Unavailable Prism.js language name, `Prism.languages` method name.",
+  async () => {
+    let error;
 
-  await assertSnapshot(
-    error.message,
-    new URL(
-      "./test/snapshots/unavailable-prismjs-language-name-error.ans",
-      import.meta.url
-    )
-  );
-});
+    try {
+      await babel.transformAsync("/* syntax-highlight extend */ ``", {
+        plugins: [babelPluginSyntaxHighlight],
+      });
+    } catch (e) {
+      error = e;
+    }
+
+    ok(error instanceof Error);
+
+    await assertSnapshot(
+      error.message,
+      new URL(
+        "./test/snapshots/unavailable-prismjs-language-name-prism-languages-method-name-error.ans",
+        import.meta.url
+      )
+    );
+  }
+);
 
 tests.add("Unsupported template literal expression.", async () => {
   let error;

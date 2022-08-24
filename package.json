@@ -32,22 +32,26 @@
     "node": "^14.17.0 || ^16.0.0 || >= 18.0.0"
   },
   "dependencies": {
+    "@types/babel__core": "^7.1.19",
     "prismjs": "^1.29.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
+    "@types/node": "^18.7.11",
     "coverage-node": "^8.0.0",
     "eslint": "^8.22.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^2.7.1",
     "snapshot-assertion": "^5.0.0",
-    "test-director": "^10.0.0"
+    "test-director": "^10.0.0",
+    "typescript": "^4.7.4"
   },
   "scripts": {
     "eslint": "eslint .",
     "prettier": "prettier -c .",
+    "types": "tsc -p jsconfig.json",
     "tests": "FORCE_COLOR=1 coverage-node test.mjs",
-    "test": "npm run eslint && npm run prettier && npm run tests",
+    "test": "npm run eslint && npm run prettier && npm run types && npm run tests",
     "prepublishOnly": "npm test"
   }
 }
