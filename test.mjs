@@ -1,7 +1,7 @@
 // @ts-check
 
 import babel from "@babel/core";
-import { ok, strictEqual } from "assert";
+import { ok, strictEqual } from "node:assert";
 import assertSnapshot from "snapshot-assertion";
 import TestDirector from "test-director";
 

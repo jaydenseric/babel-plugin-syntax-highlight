@@ -10,6 +10,7 @@
 - Removed `./package` from the package `exports` field; the full `package.json` filename must be used in a `require` path.
 - Renamed the `index.js` module to `babelPluginSyntaxHighlight.js` and added it to the package `exports` field so it can be deep imported.
 - Implemented TypeScript types via JSDoc comments.
+- Use the `node:` URL scheme for Node.js builtin module imports in tests.
 
 ### Patch
 
